@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>SmartMirror</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<style>* {
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	  }
+
+	  body {
+		margin: 0;
+		color: #000000;
+		font-family: 'Roboto', 'Arial',  sans-serif;
+	  }
+
+	  #wrapper {
+		position: relative;
+		overflow: hidden;
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 0 15px;
+	  }
+
+	  #header {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: row;
+		flex-direction: row;
+		-webkit-box-pack: justify;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		padding: 30px 0 70px;
+	  }
+
+	  .weather-widget {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: row;
+		flex-direction: row;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		width: 320px;
+		font-size: 20px;
+		line-height: 24px;
+	  }
+	  .weather-widget .img {
+		width: 120px;
+	  }
+	  .weather-widget .img img {
+		width: 100%;
+		height: auto;
+		vertical-align: top;
+	  }
+	  .weather-widget .text-holder {
+		width: calc(100% - 120px);
+		padding: 0 0 0 10px;
+	  }
+	  .weather-widget .temp {
+		display: block;
+		font-size: 50px;
+		line-height: 1;
+		font-weight: 300;
+	  }
+	  .weather-widget .location {
+		display: block;
+		font-weight: 100;
+	  }
+	  .time-widget {
+		width: 270px;
+		text-align: right;
+	  }
+	  .time-widget .time {
+		font-size: 54px;
+		line-height: 64px;
+		font-weight: 100;
+		display: block;
+	  }
+	  .time-widget time {
+		font-size: 32px;
+		line-height: 40px;
+		font-weight: 100;
+	  }
+	  .middle-block {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: row;
+		flex-direction: row;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+	  }
+	  .news-area {
+		width: 200px;
+		padding: 0 10px 0 0;
+	  }
+	  .news-area .img {
+		width: 70px;
+		margin: 0 0 10px;
+		display: block;
+	  }
+	  .news-area .img img {
+		width: 100%;
+		height: auto;
+		vertical-align: top;
+	  }
+	  .news-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-weight: 100;
+	  }
+	  .news-list li {
+		margin: 0 0 5px;
+	  }
+	  .news-list .title {
+		display: block;
+	  }
+	  .news-list .publisher {
+		display: block;
+	  }
+	  .mirror-area {
+	  width: calc(100% - 300px);
+	  min-height: 500px;
+	  /*border: 1px solid #707070;*/
+	  }
+	  .time-detail {
+		width: 200px;
+		padding: 0 0 0 10px;
+		font-size: 20px;
+		line-height: 24px;
+		font-weight: 300;
+	  }
+	  .time-detail .img {
+		width: 86px;
+		display: block;
+		margin: 0 auto 10px;
+	  }
+	  .time-detail .img img {
+		width: 100%;
+		height: auto;
+		vertical-align: top;
+	  }
+	  .list-time {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	  }
+	  .list-time li {
+		margin: 0 0 10px;
+	  }
+	  .list-time .time {
+		display: block;
+	  }
+	  .quote-are {
+		padding: 30px 0;
+	  }
+	  blockquote {
+		font-weight: 100;
+		font-size: 30px;
+		margin: 0;
+	  }
+	  blockquote q:before,
+	  blockquote q:after {
+		display: none;
+	  }
+	  @media (max-width: 767px) {
+		#header {
+		  -ms-flex-wrap: wrap;
+		  flex-wrap: wrap;
+		}
+		.weather-widget {
+		  margin: 0 0 20px;
+		}
+		.middle-block {
+		  -ms-flex-wrap: wrap;
+		  flex-wrap: wrap;
+		}
+		.news-area {
+		  -webkit-box-ordinal-group: 2;
+		  -ms-flex-order: 1;
+		  order: 1;
+		  width: 50%;
+		}
+		.time-detail {
+		  -webkit-box-ordinal-group: 3;
+		  -ms-flex-order: 2;
+		  order: 2;
+		  width: 50%;
+		}
+		.mirror-area {
+		  width: 100%;
+		  -webkit-box-ordinal-group: 4;
+		  -ms-flex-order: 3;
+		  order: 3;
+		  margin: 30px 0 0;
+		  min-height: 300px;
+		}
+		blockquote {
+		  font-size: 20px;
+		}
+	  }
+	  </style>
+		<style>
+			#drag-1, #drag-2, #drag-3, #drag-4, #drag-5 {
+				float: left;
+				margin: 1%;
+				background-color: white;
+				color: black;
+				border-radius: 0.75em;
+				padding: 4%;
+				touch-action: none;
+				user-select: none;
+				-webkit-transform: translate(0px, 0px);
+					transform: translate(0px, 0px);
+				}
+				#mirror-boundaries:after {
+  			content: "";
+  			display: table;
+  			clear: both;
+				}
+		</style>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100i,300,400,500,700&display=swap" rel="stylesheet">
+	<link media="all" rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+	<center>
+	<div id="mirror=boundaries" style="border-color: black; border-width: 2px; border-style: solid; height: 1280px; width: 1080px; background-color: black;">
+			<div id="drag-1" style="border-color: black; border-width: 2px; border-style: solid; border-radius: 0.75em;" class="weather-widget draggable">
+				<div class="img">
+					<img src={{url_for('static', filename='img-cloud.png')}}></img>
+				</div>
+				{% autoescape false %}
+				<div class="text-holder">
+					<span class="location1">{{weatherInfo}}</span>
+					<span class="location1">{{weatherInfo1}}</span>
+					<span class="location2">{{weatherInfo2}}</span>
+					<span class="location3">{{weatherInfo3}}</span>
+				</div>
+				{% endautoescape %}
+			</div>
+			<div id="drag-2" style="border-color: black; border-width: 2px; border-style: solid; border-radius: 0.75em;" class="weather-widget draggable">
+				{% autoescape false %}
+				<h3><strong class="time"><p id="timezone1"><span id="time">{{timezone1}}{{timezone2}}{{timezone3}}{{timezone4}}</span></p></strong></h3>
+					{% endautoescape %}
+				</div>
+			<div id="drag-3" style="border-color: black; border-width: 2px; border-style: solid; border-radius: 0.75em;" class="weather-widget draggable">
+				<span class="img"><img src={{url_for('static', filename='icon-pin.png')}} alt="pin"></span>
+				{% autoescape false %}
+				<span class="news">{{news}}</span>
+				{% endautoescape %}
+			</div>
+			<div id="drag-4" style="border-color: black; border-width: 2px; border-style: solid; border-radius: 0.75em;" class="time-detail draggable">
+				<span class="img"><img src={{url_for('static', filename='icon-calendar.png')}}></span>
+				<div class="section">
+					{% autoescape false %}
+					<span class="calendar">{{calendar}}</span>
+					{% endautoescape %}
+				</div>
+			</div>
+		<div id="drag-5" class="quote-are draggable" style="border-color: black; border-width: 2px; border-style: solid; border-radius: 0.75em;">
+			<blockquote>
+				<q>{{quote}}</q>
+			</blockquote>
+	</div>
+		</div>
+	</center>
+</body>
+<script>
+			// target elements with the "draggable" class
+interact('.draggable')
+	.draggable({
+		// enable inertial throwing
+		inertia: true,
+		// keep the element within the area of it's parent
+		modifiers: [
+			interact.modifiers.restrictRect({
+				restriction: 'parent',
+				endOnly: true
+			})
+		],
+		autoScroll: true,
+		onmove: dragMoveListener,
+	})
+function dragMoveListener (event) {
+	var target = event.target
+	// keep the dragged position in the data-x/data-y attributes
+	var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+	var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+	// translate the element
+	target.style.webkitTransform =
+		target.style.transform =
+			'translate(' + x + 'px, ' + y + 'px)'
+
+	// update the posiion attributes
+	target.setAttribute('data-x', x)
+	target.setAttribute('data-y', y)
+}
+</script>
+</html>

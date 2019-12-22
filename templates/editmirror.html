@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <center><head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Smart Mirror Dashboard</title>
+    <style>
+      #drag-1, #drag-2, #drag-3, #drag-4, #drag-5 {
+        width: 50%;
+        min-height: 5.5em;
+        margin: 1%;
+        background-color: #29e;
+        color: white;
+        border-radius: 0.75em;
+        padding: 4%;
+        touch-action: none;
+        user-select: none;
+        -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+        }
+    </style>
+  </head>
+  <body style="background-color: antiquewhite;">
+    <h1 class="col-xl-5">Chapman Smart Mirror</h1>
+    <!-- jQuery first, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <!-- Form to enter zipcode or city name -->
+    <div id="mirror=boundaries" style="border-color: black; border-width: 2px; border-style: solid; height: 1280px; width: 1080px;">
+    <div id="drag-1" class="draggable">
+				<div class="img">
+					<img src={{url_for('static', filename='img-cloud.png')}}></img>
+				</div>
+				{% autoescape false %}
+				<div class="text-holder">
+					<span class="location">{{weatherInfo}}</span>
+				</div>
+				{% endautoescape %}
+			</div>
+    <div id="drag-2" class="draggable">
+      <div class="news-area">
+        <span class="img"><img src={{url_for('static', filename='icon-pin.png')}} alt="pin"></span>
+        {% autoescape false %}
+        <span class="news">{{news}}</span>
+        {% endautoescape %}
+      </div>
+    </div>
+    <div id="drag-3" class="draggable">
+      <div class="quote-are"
+  			<blockquote>
+  				<q>{{quote}}</q>
+  			</blockquote>
+  		</div>
+    </div>
+    <div id="drag-4" class="draggable">
+      <div>
+        {% autoescape false %}
+        <h1><strong class="time"><p><span id="time">{{timezone}}</span></p></strong></h1>
+          {% endautoescape %}
+        </div>
+    </div>
+    <div id="drag-5" class="draggable">
+        <span class="img"><img src={{url_for('static', filename='icon-calendar.png')}}></span>
+        <div class="section">
+          <span class="calendar">{{calendar}}</span>
+        </div>
+    </div>
+    </div>
+    <form action="{{ url_for('getNewsCategory') }}" method="post">
+    <div>
+    <center><button id="categorySubmit" class="btn btn-primary" type="submit">Submit</button></center>
+    </div>
+  </form>
+  </body>
+  <script>
+        // target elements with the "draggable" class
+  interact('.draggable')
+    .draggable({
+      // enable inertial throwing
+      inertia: true,
+      // keep the element within the area of it's parent
+      modifiers: [
+        interact.modifiers.restrictRect({
+          restriction: 'parent',
+          endOnly: true
+        })
+      ],
+      autoScroll: true,
+      onmove: dragMoveListener,
+    })
+  function dragMoveListener (event) {
+    var target = event.target
+    // keep the dragged position in the data-x/data-y attributes
+    var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+    var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+    // translate the element
+    target.style.webkitTransform =
+      target.style.transform =
+        'translate(' + x + 'px, ' + y + 'px)'
+
+    // update the posiion attributes
+    target.setAttribute('data-x', x)
+    target.setAttribute('data-y', y)
+  }
+</script>
+	  </center>
+</html>
